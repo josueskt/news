@@ -19,8 +19,10 @@
 </nav>
 <div class="all p-5 ">
   <div class="container-fluid mt-4 bg-light" style="max-width: 100vw; overflow-x: auto;">
+  
     <div  class="row mb-5 align-items-center">
-      @for (noticia of noticias; track $index) {
+
+      @for (noticia of noticiasPaginadas(); track $index) {
         @defer  {
 
         
@@ -44,8 +46,20 @@
       <img alt="loading..." src="loading.gif" />
     }
     }
+    <div class="container-fluid mt-4 bg-light" style="max-width: 100vw; overflow-x: auto;">
+      <div class="d-flex justify-content-center ">
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1" class="btn btn-primary mx-2">
+          << Anterior
+        </button>
+        
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage * pageSize >= noticias.length" class="btn btn-primary">
+         Siguiente >>
+        </button>
+      </div>
     </div>
+    
   </div>
+  
 </div>
   
 <router-outlet />

@@ -12,6 +12,9 @@ export class AppComponent {
   title = 'news';
   load = true
   noticias: any[] = [];
+  currentPage = 1;
+pageSize = 10;
+
 readonly noticiasS = inject(ServiceService) 
 ngOnInit(): void {
   this.noticiasS.obtenerNoticias().subscribe(response => {
@@ -30,6 +33,11 @@ ngOnInit(): void {
       });
     }
   });
+}
+noticiasPaginadas() {
+  const start = (this.currentPage - 1) * this.pageSize;
+  const end = start + this.pageSize;
+  return this.noticias.slice(start, end);
 }
 
 formatDate(fecha: string | null): string {
